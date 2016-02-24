@@ -1,0 +1,29 @@
+body {
+	font-family: "Roboto", Helvetica, Arial, sans-serif;
+	background-color: #ECECEC;
+}
+
+.container {
+	width: 100%;
+}
+
+google-map {
+	height: 600px;
+}
+
+.data-section span {
+	display: block;
+}
+
+paper-material {
+	background-color: white;
+	margin: 0 auto;
+	padding: 25px;
+	width: 75%;
+}
+
+@media screen and (max-width: 768px) {
+	google-map {
+		height: 300px;
+	}
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "eslint:recommended",
+  "rules": {
+    "quotes": [2, "single"],
+    "semi": [2, "always"]
+  },
+  "env": {
+    "browser": true,
+    "amd": true
+  },
+  "globals": {
+      "google": false
+  }
+}

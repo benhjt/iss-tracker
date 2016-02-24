@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>ISS Tracker!</title>
+
+    <link rel="import" href="elements/allElements.html">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <script>
+      // lazy load web components polyfills
+      var webComponentsSupported = ('registerElement' in document &&
+        'import' in document.createElement('link') &&
+        'content' in document.createElement('template'));
+
+      if (!webComponentsSupported) {
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'bower_components/webcomponentsjs/webcomponents-lite.min.js';
+        document.head.appendChild(script);
+      }
+    </script>
+    <script type="text/javascript" src="scripts/app.js" async></script>
+  </head>
+  <body class="fullbleed layout vertical" unresolved>
+    <template is="dom-bind" id="app">
+      <iron-ajax
+        auto
+        url="https://api.wheretheiss.at/v1/satellites/25544?units=miles"
+        handle-as="json"
+        on-response="handlePositionResponse"
+        id="ajaxRequest"
+      ></iron-ajax>
+      <iron-ajax
+        auto
+        url="https://api.wheretheiss.at/v1/satellites/25544/tles"
+        handle-as="json"
+        on-response="handleTLEResponse"
+      ></iron-ajax>
+
+      <div class="container">
+        <google-map id="map" zoom="3" latitude="25" longitude="0" map-type="hybrid">
+          <google-map-marker
+            latitude="[[latitude]]"
+            longitude="[[longitude]]"
+            title="ISS (ZARYA)"
+          ></google-map-marker><!-- icon="images/icon-iss.png" -->
+        </google-map>
+        <div class="data-section">
+          <paper-material class="data-section">
+            <paper-checkbox checked="{{centerMap}}">Center map</paper-checkbox>
+
+            <h2>[[satelliteName]]</h2>
+            <span>[[timeString]]</span>
+            <span>Latitude: [[latitudeDisplay]]&deg;</span>
+            <span>Longitude: [[longitudeDisplay]]&deg;</span>
+            <span>Altitude: [[altitude]] [[distanceUnits]]</span>
+            <span>Velocity: [[velocity]] [[speedUnits]]</span>
+            <span>[[visibility]]</span>
+
+            <paper-radio-group selected="miles">
+              <paper-radio-button name="miles">miles</paper-radio-button>
+              <paper-radio-button name="kilometers">kilometers</paper-radio-button>
+            </paper-radio-group>
+          </paper-material>
+        </div>
+      </div>
+    </template>
+  </body>
+</html>
