@@ -41,33 +41,30 @@
         on-response="handleTLEResponse"
       ></iron-ajax>
 
-      <div class="container">
-        <google-map id="map" zoom="3" latitude="25" longitude="0" map-type="hybrid">
-          <google-map-marker
-            latitude="[[latitude]]"
-            longitude="[[longitude]]"
-            title="ISS (ZARYA)"
-          ></google-map-marker><!-- icon="images/icon-iss.png" -->
-        </google-map>
-        <div class="data-section">
-          <paper-material class="data-section">
-            <paper-checkbox checked="{{centerMap}}">Center map</paper-checkbox>
+      <google-map id="map" zoom="3" latitude="25" longitude="0" map-type="hybrid">
+        <google-map-marker
+          latitude="[[latitude]]"
+          longitude="[[longitude]]"
+          title="ISS (ZARYA)"
+        ></google-map-marker><!-- icon="images/icon-iss.png" -->
+      </google-map>
 
-            <h2>[[satelliteName]]</h2>
-            <span>[[timeString]]</span>
-            <span>Latitude: [[latitudeDisplay]]&deg;</span>
-            <span>Longitude: [[longitudeDisplay]]&deg;</span>
-            <span>Altitude: [[altitude]] [[distanceUnits]]</span>
-            <span>Velocity: [[velocity]] [[speedUnits]]</span>
-            <span>[[visibility]]</span>
+      <paper-card class="data-section">
+        <paper-checkbox checked="{{centerMap}}">Center map</paper-checkbox>
 
-            <paper-radio-group selected="miles">
-              <paper-radio-button name="miles">miles</paper-radio-button>
-              <paper-radio-button name="kilometers">kilometers</paper-radio-button>
-            </paper-radio-group>
-          </paper-material>
-        </div>
-      </div>
+        <h2>[[satelliteName]]</h2>
+        <span>[[timeString]]</span>
+        <span>Latitude: [[latitudeDisplay]]&deg;</span>
+        <span>Longitude: [[longitudeDisplay]]&deg;</span>
+        <span>Altitude: [[altitude]] [[distanceUnits]]</span>
+        <span>Velocity: [[velocity]] [[speedUnits]]</span>
+        <span>[[visibility]]</span>
+
+        <paper-radio-group selected="miles">
+          <paper-radio-button name="miles">miles</paper-radio-button>
+          <paper-radio-button name="kilometers">kilometers</paper-radio-button>
+        </paper-radio-group>
+      </paper-card>
     </template>
   </body>
 </html>

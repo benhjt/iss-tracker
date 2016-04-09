@@ -16,7 +16,7 @@
 		"iron-ajax": "PolymerElements/iron-ajax#^1.1.0",
 		"paper-radio-group": "PolymerElements/paper-radio-group#^1.0.8",
 		"paper-radio-button": "PolymerElements/paper-radio-button#^1.0.12",
-		"paper-material": "PolymerElements/paper-material#^1.0.5",
+		"paper-card": "PolymerElements/paper-card#^1.1.1",
 		"paper-checkbox": "PolymerElements/paper-checkbox#^1.1.0",
 		"google-map": "GoogleWebComponents/google-map#^1.1.7"
 	},

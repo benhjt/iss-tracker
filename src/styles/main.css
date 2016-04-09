@@ -1,29 +1,20 @@
-body {
+html, body {
 	font-family: "Roboto", Helvetica, Arial, sans-serif;
 	background-color: #ECECEC;
+	height: 100%;
+  margin: 0;
 }
 
-.container {
-	width: 100%;
-}
-
-google-map {
-	height: 600px;
+paper-card {
+	background-color: white;
+	bottom: 25px;
+	margin: 0 auto;
+	padding: 25px;
+  position: absolute;
+	right: 25px;
+  z-index: 1;
 }
 
 .data-section span {
 	display: block;
-}
-
-paper-material {
-	background-color: white;
-	margin: 0 auto;
-	padding: 25px;
-	width: 75%;
-}
-
-@media screen and (max-width: 768px) {
-	google-map {
-		height: 300px;
-	}
 }
