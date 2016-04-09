@@ -8,7 +8,7 @@ var vulcanize = require('gulp-vulcanize');
 
 // Cleans the dist folder
 gulp.task('clean', function () {
-	del(['./dist', './.publish']);
+	del(['./dist']);
 });
 
 gulp.task('build', ['clean'], function () {
