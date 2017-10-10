@@ -13,18 +13,18 @@
 	"license": "MIT",
 	"homepage": "https://github.com/benhjt/iss-tracker",
 	"dependencies": {
-		"iron-ajax": "PolymerElements/iron-ajax#^1.1.0",
-		"paper-radio-group": "PolymerElements/paper-radio-group#^1.0.8",
-		"paper-radio-button": "PolymerElements/paper-radio-button#^1.0.12",
-		"paper-card": "PolymerElements/paper-card#^1.1.1",
-		"paper-checkbox": "PolymerElements/paper-checkbox#^1.1.0",
-		"google-map": "GoogleWebComponents/google-map#^1.1.7"
+		"iron-ajax": "PolymerElements/iron-ajax#^2.0.0",
+		"paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
+		"paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0",
+		"paper-card": "PolymerElements/paper-card#^2.0.0",
+		"paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
+		"google-map": "GoogleWebComponents/google-map#^2.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
 	},
-	"ignore": [
-		"**/.*",
-		"node_modules",
-		"bower_components",
-		"test",
-		"tests"
-	]
+  "resolutions": {
+    "polymer": "^2.0.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0"
+  }
 }
