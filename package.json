@@ -1,26 +1,15 @@
 {
-	"name": "iss-tracker",
-	"description": "A simple polymer-based web-app for tracking the position of the ISS",
-	"private": true,
-	"version": "0.2.0",
-	"homepage": "https://github.com/benhjt/iss-tracker",
-	"author": {
-		"name": "Ben Thomas",
-		"url": "https://benhjt.github.io"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/benhjt/iss-tracker.git"
-	},
-	"bugs": {
-		"url": "https://github.com/benhjt/iss-tracker/issues"
-	},
-	"license": "MIT",
-	"devDependencies": {
+  "name": "iss-tracker",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "satellite.js": "^2.0.1"
+  },
+  "devDependencies": {
     "eslint": "^3.19.0",
     "eslint-config-google": "^0.7.0",
     "eslint-plugin-html": "^2.0.0"
-	},
+  },
   "scripts": {
     "lint": "npm run lint:javascript && polymer lint",
     "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",

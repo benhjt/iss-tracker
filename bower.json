@@ -1,18 +1,16 @@
 {
-	"name": "iss-tracker",
-	"description": "A simple polymer-based web-app for tracking the position of the ISS",
-	"private": true,
-	"authors": [
-		"Ben Thomas <benhjt@users.noreply.github.com>"
-	],
-	"main": "index.html",
-	"repository": {
+  "name": "iss-tracker",
+  "private": true,
+  "authors": [
+    "Ben Thomas <benhjt@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "repository": {
 		"type": "git",
 		"url": "git://github.com/benhjt/iss-tracker.git"
-	},
-	"license": "MIT",
-	"homepage": "https://github.com/benhjt/iss-tracker",
-	"dependencies": {
+  },
+  "homepage": "https://github.com/benhjt/iss-tracker",
+  "dependencies": {
 		"iron-ajax": "PolymerElements/iron-ajax#^2.0.0",
 		"paper-radio-group": "PolymerElements/paper-radio-group#^2.0.0",
 		"paper-radio-button": "PolymerElements/paper-radio-button#^2.0.0",
@@ -20,7 +18,7 @@
 		"paper-checkbox": "PolymerElements/paper-checkbox#^2.0.0",
 		"google-map": "GoogleWebComponents/google-map#^2.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
-	},
+  },
   "resolutions": {
     "polymer": "^2.0.0"
   },
