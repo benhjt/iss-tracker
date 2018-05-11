@@ -7,6 +7,7 @@
     "src/**/*"
   ],
   "extraDependencies": [
+    "node_modules/satellite.js/dist/satellite.min.js",
     "bower_components/webcomponentsjs/*.js",
     "!bower_components/webcomponentsjs/gulpfile.js",
     "manifest.json"
