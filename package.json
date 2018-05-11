@@ -1,19 +1,18 @@
 {
   "name": "iss-tracker",
-  "private": true,
-  "license": "MIT",
+  "description": "Track the location of the International Space Station",
   "dependencies": {
-    "satellite.js": "^2.0.1"
+    "@em-polymer/google-map": "^3.0.0-pre.5",
+    "@polymer/iron-ajax": "^3.0.0-pre.19",
+    "@polymer/lit-element": "^0.5.1",
+    "@polymer/paper-card": "^3.0.0-pre.19",
+    "@polymer/paper-checkbox": "^3.0.0-pre.19",
+    "@polymer/paper-radio-button": "^3.0.0-pre.19",
+    "@polymer/paper-radio-group": "^3.0.0-pre.19",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "satellite.js": "^2.0.2"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-google": "^0.7.0",
-    "eslint-plugin-html": "^2.0.0"
-  },
-  "scripts": {
-    "lint": "npm run lint:javascript && polymer lint",
-    "lint:javascript": "eslint . --ext js,html --ignore-path .gitignore",
-    "test": "polymer test",
-    "test:integration": "polymer build # test that psk builds without error with the CLI"
+    "wct-browser-legacy": "^1.0.0"
   }
 }

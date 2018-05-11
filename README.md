@@ -1,10 +1,33 @@
-# iss-tracker
+# \<iss-tracker\>
 
-A web-app for tracking the position of the ISS.
+Track the location of the International Space Station
 
-This project uses:
+## Install the Polymer-CLI
 
-* [Polymer](https://www.polymer-project.org)
-* Several of the pre-made [components](elements.polymer-project.org) by the Polymer team.
-* The great API from [Where the ISS at?](http://wheretheiss.at/w/developer).
-* Shashwat Kandadai's [Satellite.js](https://github.com/shashwatak/satellite-js) for the SGP4/SDP4 calculations.
+First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
+
+## Viewing Your Application
+
+```
+$ polymer serve
+```
+
+## Building Your Application
+
+```
+$ polymer build
+```
+
+This will create builds of your application in the `build/` directory, optimized to be served in production. You can then serve the built versions by giving `polymer serve` a folder to serve from:
+
+```
+$ polymer serve build/default
+```
+
+## Running Tests
+
+```
+$ polymer test
+```
+
+Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally.
