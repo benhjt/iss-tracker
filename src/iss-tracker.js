@@ -1,4 +1,4 @@
-import { LitElement, html } from '@polymer/lit-element';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 import '@polymer/iron-ajax/iron-ajax.js';
 import '@polymer/paper-card/paper-card.js';
@@ -10,8 +10,55 @@ import '@em-polymer/google-map/google-map-marker.js';
 
 import { twoline2satrec, propagate, gstime, eciToGeodetic, degreesLat, degreesLong } from 'satellite.js';
 
-class IssTracker extends LitElement {
+class IssTracker extends PolymerElement {
   static get is() { return 'iss-tracker'; }
+
+  static get template() {
+    return html`
+      <style>
+        .data-section {
+          background-color: white;
+          bottom: 25px;
+          margin: 0 auto;
+          padding: 25px;
+          position: absolute;
+          right: 25px;
+          z-index: 1;
+        }
+
+        .data-section span {
+          display: block;
+        }
+
+        #map {
+          height: 100vh;
+        }
+      </style>
+
+      <iron-ajax auto url="https://api.wheretheiss.at/v1/satellites/25544?units=miles" handle-as="json" on-response="handlePositionResponse"
+        id="ajaxRequest"></iron-ajax>
+      <iron-ajax auto url="https://api.wheretheiss.at/v1/satellites/25544/tles" handle-as="json" on-response="handleTLEResponse></iron-ajax>
+
+      <div id="map"></div>
+
+      <paper-card class="data-section">
+        <paper-checkbox checked="{{centerMap}>Center map</paper-checkbox>
+
+        <h2>{{satelliteName}</h2>
+        <span>{{timeString}</span>
+        <span>Latitude: {{latitudeDisplay}&deg;</span>
+        <span>Longitude: {{longitudeDisplay}&deg;</span>
+        <span>Altitude: {{altitude} {{distanceUnits}</span>
+        <span>Velocity: {{velocity} {{speedUnits}</span>
+        <span>{{visibility}</span>
+
+        <paper-radio-group selected="miles" id="unitsSelector">
+          <paper-radio-button name="miles">miles</paper-radio-button>
+          <paper-radio-button name="kilometers">kilometers</paper-radio-button>
+        </paper-radio-group>
+      </paper-card>
+    `;
+  }
 
   constructor() {
     super();
@@ -29,7 +76,8 @@ class IssTracker extends LitElement {
    * @param  {object} e  		the event fired
    * @param  {object} data	the ajax data
    */
-  handlePositionResponse(data) {
+  handlePositionResponse(event) {
+    const data = event.detail;
     this.updateValues(data.response);
     this._setISSVisibility(data.response.visibility);
     if (this.showHorizon) {
@@ -177,22 +225,9 @@ class IssTracker extends LitElement {
     // Initialize a satellite record
     const satrec = twoline2satrec(data.response.line1, data.response.line2);
     // Propagate satellite using time since epoch (in minutes).
-    const positionAndVelocity = propagate(
-      satrec,
-      now.getUTCFullYear(),
-      now.getUTCMonth() + 1, // Note, this function requires months in range 1-12.
-      now.getUTCDate(),
-      now.getUTCHours(),
-      now.getUTCMinutes(),
-      now.getUTCSeconds()
-    );
+    const positionAndVelocity = propagate(satrec, new Date());
     const positionEci = positionAndVelocity.position;
-    const gmst = gstime(now.getUTCFullYear(),
-      now.getUTCMonth() + 1, // Note, this function requires months in range 1-12.
-      now.getUTCDate(),
-      now.getUTCHours(),
-      now.getUTCMinutes(),
-      now.getUTCSeconds());
+    const gmst = gstime(new Date());
     // Geodetic
     const positionGd = eciToGeodetic(positionEci, gmst);
     // Geodetic coords are accessed via "longitude", "latitude".
@@ -210,55 +245,6 @@ class IssTracker extends LitElement {
     const time = now.toUTCString();
     this.timeString = time;
     setTimeout(this.showTime, 500);
-  }
-
-  _render(props) {
-    return html`
-      <style>
-        .data-section {
-          background-color: white;
-          bottom: 25px;
-          margin: 0 auto;
-          padding: 25px;
-          position: absolute;
-          right: 25px;
-          z-index: 1;
-        }
-
-        .data-section span {
-          display: block;
-        }
-
-        google-map {
-          height: 100vh;
-        }
-      </style>
-
-      <iron-ajax auto url="https://api.wheretheiss.at/v1/satellites/25544?units=miles" handle-as="json" on-response="${(e) => this.handlePositionResponse(e.detail)}"
-        id="ajaxRequest"></iron-ajax>
-      <iron-ajax auto url="https://api.wheretheiss.at/v1/satellites/25544/tles" handle-as="json" on-response="${(e) => this.handleTLEResponse(e.detail)}"></iron-ajax>
-
-      <google-map api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc" id="map" zoom="3" latitude="25" longitude="0" map-type="hybrid">
-        <google-map-marker latitude="${props.latitude}" longitude="${props.longitude}" title="ISS (ZARYA)" slot="markers"></google-map-marker>
-      </google-map>
-
-      <paper-card class="data-section">
-        <paper-checkbox checked="${props.centerMap}">Center map</paper-checkbox>
-
-        <h2>${props.satelliteName}</h2>
-        <span>${props.timeString}</span>
-        <span>Latitude: ${props.latitudeDisplay}&deg;</span>
-        <span>Longitude: ${props.longitudeDisplay}&deg;</span>
-        <span>Altitude: ${props.altitude} ${props.distanceUnits}</span>
-        <span>Velocity: ${props.velocity} ${props.speedUnits}</span>
-        <span>${props.visibility}</span>
-
-        <paper-radio-group selected="miles" id="unitsSelector">
-          <paper-radio-button name="miles">miles</paper-radio-button>
-          <paper-radio-button name="kilometers">kilometers</paper-radio-button>
-        </paper-radio-group>
-      </paper-card>
-    `;
   }
 }
 

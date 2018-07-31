@@ -1,18 +1,30 @@
 {
   "name": "iss-tracker",
+  "version": "1.0.0",
   "description": "Track the location of the International Space Station",
+  "author": "benhjt",
+  "scripts": {
+    "start": "polymer serve",
+    "build": "polymer build",
+    "lint": "polymer lint",
+    "test": "polymer test"
+  },
   "dependencies": {
     "@em-polymer/google-map": "^3.0.0-pre.5",
     "@polymer/iron-ajax": "^3.0.0-pre.19",
-    "@polymer/lit-element": "^0.5.1",
     "@polymer/paper-card": "^3.0.0-pre.19",
     "@polymer/paper-checkbox": "^3.0.0-pre.19",
     "@polymer/paper-radio-button": "^3.0.0-pre.19",
     "@polymer/paper-radio-group": "^3.0.0-pre.19",
+    "@polymer/polymer": "^3.0.0",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "satellite.js": "^2.0.2"
   },
   "devDependencies": {
+    "polymer-cli": "^1.7.1",
     "wct-browser-legacy": "^1.0.0"
+  },
+  "engines": {
+    "node": ">=8.0"
   }
 }
