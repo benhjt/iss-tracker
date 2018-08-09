@@ -10,8 +10,6 @@
 <!-- Google elements -->
 <link rel="import" href="../bower_components/google-map/google-map.html">
 <link rel="import" href="../bower_components/google-map/google-map-marker.html">
-<!-- custom elements -->
-<link rel="import" href="satellite-import.html">
 
 <dom-module id="iss-tracker">
   <template>
@@ -35,7 +33,6 @@
 
     <iron-ajax auto url="https://api.wheretheiss.at/v1/satellites/25544?units=miles" handle-as="json" on-response="handlePositionResponse"
       id="ajaxRequest"></iron-ajax>
-    <iron-ajax auto url="https://api.wheretheiss.at/v1/satellites/25544/tles" handle-as="json" on-response="handleTLEResponse"></iron-ajax>
 
     <google-map api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc" id="map" zoom="3" latitude="25" longitude="0" map-type="hybrid">
       <google-map-marker latitude="[[latitude]]" longitude="[[longitude]]" title="ISS (ZARYA)"></google-map-marker>
@@ -71,6 +68,7 @@
         this.centerMap = true;
         this.termCircle = undefined;
       }
+
       /**
        * Handle the ajax response
        *
@@ -85,6 +83,7 @@
         } else {
           this.hideHorizon();
         }
+
         if (this.centerMap) {
           const map = this.$.map;
           map.latitude = this.latitude;
@@ -93,6 +92,7 @@
         this.drawSunriseSunset(data.response.solar_lat, data.response.solar_lon);
         setTimeout(this.getISSPosition.bind(this), 2000);
       }
+
       /**
        * Updates the values on the model from the ajax response
        *
@@ -106,6 +106,7 @@
         this.altitude = this._formatNumber(response.altitude);
         this.velocity = this._formatNumber(response.velocity);
       }
+
       /**
        * Calculates a number to 2dp and then formats it based on the users locale
        *
@@ -117,6 +118,7 @@
         formatted = new Intl.NumberFormat().format(number);
         return formatted;
       }
+
       /**
        * Creates a readable String for the whether the ISS is in daylight or night
        *
@@ -133,6 +135,7 @@
             break;
         }
       }
+
       /**
        * Draws the horizon circle on the map
        *
@@ -146,12 +149,14 @@
         } else {
           horizonRadius *= 1000;
         }
+
         // no custom element for a circle (yet) so let's do it the old fashioned way!
         if (typeof this.horizonCircle !== 'object') {
           this.horizonCircle = new google.maps.Circle({
             strokeColor: '#FFFFFF',
             strokeOpacity: 0.8,
-            strokeWeight: 2,          fillColor: '#FFFFFF',
+            strokeWeight: 2,
+            fillColor: '#FFFFFF',
             fillOpacity: 0.3,
             map: this.$.map.map,
             center: horizonCenter,
@@ -163,6 +168,7 @@
           this.horizonCircle.setRadius(horizonRadius);
         }
       }
+
       /**
        * Hides the horizon circle around the ISS
        */
@@ -171,6 +177,7 @@
           this.horizonCircle.setMap(null);
         }
       };
+
       /**
        * Draws the sunrise/sunset line on the map
        *
@@ -195,6 +202,7 @@
           this.termCircle.setCenter(new google.maps.LatLng(darkLat, darkLong));
         }
       }
+
       /**
        * Makes an Ajax request to get the current position of the ISS.
        */
@@ -212,35 +220,7 @@
         }
         ajaxRequest.generateRequest();
       }
-      handleTLEResponse(e, data) {
-        const now = new Date();
-        // Initialize a satellite record
-        const satrec = satellite.twoline2satrec(data.response.line1, data.response.line2);
-        // Propagate satellite using time since epoch (in minutes).
-        const positionAndVelocity = satellite.propagate(
-          satrec,
-          now.getUTCFullYear(),
-          now.getUTCMonth() + 1, // Note, this function requires months in range 1-12.
-          now.getUTCDate(),
-          now.getUTCHours(),
-          now.getUTCMinutes(),
-          now.getUTCSeconds()
-        );
-        const positionEci = positionAndVelocity.position;
-        const gmst = satellite.gstime(now.getUTCFullYear(),
-          now.getUTCMonth() + 1, // Note, this function requires months in range 1-12.
-          now.getUTCDate(),
-          now.getUTCHours(),
-          now.getUTCMinutes(),
-          now.getUTCSeconds());
-        // Geodetic
-        const positionGd = satellite.eciToGeodetic(positionEci, gmst);
-        // Geodetic coords are accessed via "longitude", "latitude".
-        const longitude = positionGd.longitude;
-        const latitude = positionGd.latitude;
-        console.log(satellite.degreesLong(longitude));
-        console.log(satellite.degreesLat(latitude));
-      };
+
       /**
        * Shows the current time. Creates a timer to call it every 0.5s
        */
